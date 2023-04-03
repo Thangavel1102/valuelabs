@@ -1,0 +1,32 @@
+<%= flash[:notice] %>
+<div>
+  <h3>Import Employee CSV File</h3>
+  <%= form_tag employees_import_path, method: 'post', multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag 'Import from file' %>
+  <% end %>
+</div>
+<br />
+
+<div>
+<table class="table table-bordered">
+<thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Manager Name</th>
+    <th scope="col">Manager Email</th>
+  </tr>
+</thead>
+<tbody>
+  <% @employees.each do |emp| %>
+    <tr>
+      <td><%= emp.name %></td>
+      <td><%= emp.email %></td>
+      <td><%= emp.try(:manager).try(:name) %></td>
+      <td><%= emp.try(:manager).try(:email) %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>
